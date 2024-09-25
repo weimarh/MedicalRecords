@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Patient",
+    "goto": "/patients",
+    "link": "https://logodix.com/logo/1956328.png"
+  },
+  {
+    "id": 2,
+    "title": "Medical records",
+    "goto": "/login",
+    "link": "https://media.istockphoto.com/id/1406309656/vector/medical-record-icon-medical-report-icon-health-care-diagnosis-clipboard-icon-design-template.jpg?s=612x612&w=0&k=20&c=Bp5a-tYhsOxYcvDQixvjiNJiBYw5a4ChNBejvATgUs4="
+  },
+  {
+    "id": 3,
+    "title": "Medical History",
+    "goto": "/login",
+    "link": "https://as2.ftcdn.net/v2/jpg/01/84/97/83/1000_F_184978361_8UcjJekpx1CxjJD6Rj3fNDO6JhkBpHRo.jpg"
+  },
+  {
+    "id": 4,
+    "title": "Family History",
+    "goto": "/login",
+    "link": "https://lh5.googleusercontent.com/proxy/pzfCSKIm0HW3LqWAeHAu2FFiHjH_ukKOCQCFbtTWYrjm0eM-ZVnmoUpd6wlmHEq0hx79-_KPMKjuBYMIF2c6NnG4LQUIrxT5rNmGJjn61adL80I9FTkQjseTt8dlehd4oW26"
+  },
+  {
+    "id": 5,
+    "title": "Doctors",
+    "goto": "/login",
+    "link": "https://cdn.vectorstock.com/i/500p/14/39/circular-doctor-icon-with-stethoscope-nurse-logo-vector-53211439.jpg"
+  },
+  {
+    "id": 6,
+    "title": "Facilities",
+    "goto": "/login",
+    "link": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyxBxYRWhQko-ShPPxTnkF77a3i5m5jM7e-Q&s"
+  }
+]
