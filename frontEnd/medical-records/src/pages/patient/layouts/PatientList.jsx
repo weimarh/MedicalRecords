@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,7 +13,8 @@ import {
 } from "../context/patientContext";
 import ButtonMUI from "../../../components/button/Button";
 
-export default function PatientList() {
+export default function PatientList(props) {
+  const { name } = props;
   const { patients, loading } = useContext(PatientContext);
   const actions = useContext(DispatchPatientContext);
 
@@ -21,38 +23,50 @@ export default function PatientList() {
   }, [actions]);
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell align="right">First Name</TableCell>
-            <TableCell align="right">Last Name</TableCell>
-            <TableCell align="right">Birthdate(g)</TableCell>
-            <TableCell align="right">Gender</TableCell>
-            <TableCell align="right">Actions</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {loading && <p>Loading...</p>}
-          {patients.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+    <div>
+      {name ? (
+        <>
+          <TableContainer component={Paper}>
+            <Table
+              sx={{ minWidth: 650 }}
+              size="small"
+              aria-label="a dense table"
             >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.id}</TableCell>
-              <TableCell align="right">{row.firstName}</TableCell>
-              <TableCell align="right">{row.lastName}</TableCell>
-              <TableCell align="right">{row.birthDate}</TableCell>
-              <ButtonMUI>Update</ButtonMUI>
-              <ButtonMUI color="error">Delete</ButtonMUI>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Id</TableCell>
+                  <TableCell align="right">First Name</TableCell>
+                  <TableCell align="right">Last Name</TableCell>
+                  <TableCell align="right">Birthdate</TableCell>
+                  <TableCell align="right">Gender</TableCell>
+                  <TableCell align="right">Actions</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {loading && <p>Loading...</p>}
+                {patients.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="right">{row.id}</TableCell>
+                    <TableCell align="right">{row.firstName}</TableCell>
+                    <TableCell align="right">{row.lastName}</TableCell>
+                    <TableCell align="right">{row.birthDate}</TableCell>
+                    <ButtonMUI>Update</ButtonMUI>
+                    <ButtonMUI color="error">Delete</ButtonMUI>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : (
+        <h1>You are not logged in</h1>
+      )}
+    </div>
   );
 }

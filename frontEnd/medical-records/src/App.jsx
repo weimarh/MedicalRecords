@@ -10,29 +10,21 @@ import { useEffect, useState } from "react";
 import Patients from "./pages/patient";
 
 function App() {
-  const [name, setName] = useState("Weimar");
+  const [name, setName] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("XXXXXXXXXXXXXXXXXXXXXXXXXX", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
+    (async () => {
+      const response = await fetch(
+        "http://localhost:5039/api/authentication/user",
+        {
+          headers: { "Content-Type": "application/json" },
           credentials: "include",
-        });
-
-        const content = await response.json();
-
-        setName(content);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        // Handle the error here, e.g., display an error message or retry the fetch
-      }
-    };
-
-    fetchData();
+        }
+      );
+      const content = await response;
+      console.log("content", content);
+      setName(content);
+    })();
   }, []);
 
   return (
@@ -44,7 +36,7 @@ function App() {
             <Route path="/" exact element={<Home name={name} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/patients" element={<Patients />} />
+            <Route path="/patients" element={<Patients name={name} />} />
           </Routes>
         </main>
       </BrowserRouter>

@@ -164,6 +164,38 @@ namespace MedicalRecords.Controllers
             });
         }
 
+        [Route("user")]
+        [HttpGet]
+        public ActionResult RegistratedUser() {
+             var jwt = Request.Cookies["jwtToken"];
+
+             if (jwt == null) {
+                 return Unauthorized();
+             }
+
+             var token = ReadToken(jwt!);
+
+             string userId = token.Issuer;
+
+             var user = _userManager.FindByIdAsync(userId);
+
+             var emailClaim = token.Claims.FirstOrDefault(c => c.Type == "email");
+
+            string? email = emailClaim?.Value;
+
+            if (email != null)
+            {
+                // Use the email value
+                Console.WriteLine("Email: " + email);
+            }
+            else
+            {
+                Console.WriteLine("Email claim not found in the token.");
+            }
+
+             return Ok(email);
+        }
+
         private string GenerateJwtToken(IdentityUser user)
         {
             var jwtTokenHandler = new JwtSecurityTokenHandler();
@@ -190,6 +222,26 @@ namespace MedicalRecords.Controllers
             var jwtToken = jwtTokenHandler.WriteToken(token);
 
             return jwtToken;
+        }
+
+        public JwtSecurityToken ReadToken(string token)
+        {
+            var jwtTokenHandler = new JwtSecurityTokenHandler();
+
+            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("JwtConfig:Secret").Value!);
+
+            var parameters = new TokenValidationParameters()
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ClockSkew = TimeSpan.Zero
+            };
+
+            jwtTokenHandler.ValidateToken(token, parameters, out SecurityToken validatedToken);
+
+            return (JwtSecurityToken)validatedToken;
         }
     }
 }

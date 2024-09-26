@@ -3,7 +3,7 @@ import { ActionTypes } from "../../../utils/constants";
 function getPatients(dispatch) {
   dispatch({ type: ActionTypes.LOADING_SWITCH, payload: true });
 
-  fetch("")
+  fetch("http://localhost:5039/api/patient")
     .then((res) => res.json())
     .then((data) => {
       dispatch({ type: ActionTypes.RECORDS_LOAD, payload: data });
